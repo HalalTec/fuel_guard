@@ -22,6 +22,6 @@ class DashboardController
         $stats          = $this->tripModel->getStats();
         $vehicleCount   = $this->vehicleModel->count();
 
-        require __DIR__ . '/../view/manager/dashboard.php';
+        require __DIR__ . '/../view/Manager/dashboard.php';
     }
 }
