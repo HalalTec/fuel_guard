@@ -1,7 +1,17 @@
 <?php
 
-$localConfigFile = __DIR__ . '/database.local.php';
-$localConfig = file_exists($localConfigFile) ? require $localConfigFile : [];
+$localConfigFiles = [
+    __DIR__ . '/database.local.php',
+    '/etc/secrets/database.local.php',
+];
+
+$localConfig = [];
+foreach ($localConfigFiles as $localConfigFile) {
+    if (file_exists($localConfigFile)) {
+        $localConfig = require $localConfigFile;
+        break;
+    }
+}
 
 $configValue = static function (string $key, ?string $default = null) use ($localConfig): string {
     $environmentValue = getenv($key);
