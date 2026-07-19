@@ -1,0 +1,12 @@
+<?php
+
+// Copy this file to database.local.php and paste the values shown in
+// Supabase Dashboard > Connect > Connection string > Session pooler.
+return [
+    'DB_HOST'    => 'aws-0-your-region.pooler.supabase.com',
+    'DB_PORT'    => '5432',
+    'DB_NAME'    => 'postgres',
+    'DB_USER'    => 'postgres.your-project-reference',
+    'DB_PASS'    => 'your-database-password',
+    'DB_SSLMODE' => 'require',
+];
