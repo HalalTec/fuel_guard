@@ -1,0 +1,5 @@
+.git
+.gitignore
+config/database.local.php
+config/database.local.php.example
+*.log
