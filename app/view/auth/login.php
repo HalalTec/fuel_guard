@@ -69,6 +69,7 @@
         <?php endif; ?>
 
         <form action="<?= BASE_URL ?>/auth" method="POST" novalidate>
+            <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($_SESSION['csrf_token'], ENT_QUOTES, 'UTF-8') ?>">
 
             <div class="mb-4">
                 <label for="email" class="block text-sm font-medium text-slate-700 mb-1.5">Email address</label>
@@ -96,21 +97,6 @@
                 Sign In
             </button>
         </form>
-
-        <!-- Demo credentials hint -->
-        <div class="mt-8 p-4 bg-slate-50 border border-slate-200 rounded-lg">
-            <p class="text-xs font-semibold text-slate-600 mb-2">Demo credentials (password: <code class="bg-slate-200 px-1 rounded">password</code>)</p>
-            <div class="grid grid-cols-2 gap-x-4 text-xs text-slate-500">
-                <div>
-                    <p class="font-medium text-slate-600">Manager</p>
-                    <p>manager@fuelguard.com</p>
-                </div>
-                <div>
-                    <p class="font-medium text-slate-600">Officer</p>
-                    <p>officer@fuelguard.com</p>
-                </div>
-            </div>
-        </div>
     </div>
 
 </div>

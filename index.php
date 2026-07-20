@@ -15,6 +15,7 @@ require_once __DIR__ . '/app/services/TripAuditService.php';
 require_once __DIR__ . '/app/controller/AuthController.php';
 require_once __DIR__ . '/app/controller/TripController.php';
 require_once __DIR__ . '/app/controller/DashboardController.php';
+require_once __DIR__ . '/app/controller/AdminController.php';
 require_once __DIR__ . '/app/controller/DriverController.php';
 
 $routes = require __DIR__ . '/app/routes/routes.php';

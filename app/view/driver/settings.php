@@ -72,12 +72,13 @@ require __DIR__ . '/../partials/header.php';
             <h3 class="font-semibold text-slate-700 text-sm">Change Password</h3>
         </div>
         <form action="<?= BASE_URL ?>/save-settings" method="POST" class="p-6 space-y-4">
+            <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($_SESSION['csrf_token'], ENT_QUOTES, 'UTF-8') ?>">
 
             <div>
                 <label for="current_password" class="block text-sm font-medium text-slate-700 mb-1.5">
                     Current Password <span class="text-red-500">*</span>
                 </label>
-                <input type="password" id="current_password" name="current_password" required
+                <input type="password" id="current_password" name="current_password" required maxlength="72"
                        class="w-full px-3 py-2.5 border border-slate-200 rounded-lg text-sm text-slate-800
                               focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                        placeholder="Enter current password">
@@ -87,7 +88,7 @@ require __DIR__ . '/../partials/header.php';
                 <label for="new_password" class="block text-sm font-medium text-slate-700 mb-1.5">
                     New Password <span class="text-red-500">*</span>
                 </label>
-                <input type="password" id="new_password" name="new_password" required minlength="8"
+                <input type="password" id="new_password" name="new_password" required minlength="8" maxlength="72"
                        class="w-full px-3 py-2.5 border border-slate-200 rounded-lg text-sm text-slate-800
                               focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                        placeholder="At least 8 characters">
@@ -97,7 +98,7 @@ require __DIR__ . '/../partials/header.php';
                 <label for="confirm_password" class="block text-sm font-medium text-slate-700 mb-1.5">
                     Confirm New Password <span class="text-red-500">*</span>
                 </label>
-                <input type="password" id="confirm_password" name="confirm_password" required minlength="8"
+                <input type="password" id="confirm_password" name="confirm_password" required minlength="8" maxlength="72"
                        class="w-full px-3 py-2.5 border border-slate-200 rounded-lg text-sm text-slate-800
                               focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                        placeholder="Repeat new password">

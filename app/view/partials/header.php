@@ -38,6 +38,16 @@
                           <?= (($activeNav ?? '') === 'dashboard') ? 'bg-blue-600 text-white' : 'text-slate-300 hover:bg-slate-700 hover:text-white' ?>">
                     Dashboard
                 </a>
+                <a href="<?= BASE_URL ?>/manage"
+                   class="px-3 py-2 rounded-md text-sm font-medium transition-colors
+                          <?= (($activeNav ?? '') === 'manage') ? 'bg-blue-600 text-white' : 'text-slate-300 hover:bg-slate-700 hover:text-white' ?>">
+                    Manage
+                </a>
+                <a href="<?= BASE_URL ?>/settings"
+                   class="px-3 py-2 rounded-md text-sm font-medium transition-colors
+                          <?= (($activeNav ?? '') === 'settings') ? 'bg-blue-600 text-white' : 'text-slate-300 hover:bg-slate-700 hover:text-white' ?>">
+                    Settings
+                </a>
                 <?php elseif (($_SESSION['user_role'] ?? '') === 'driver'): ?>
                 <a href="<?= BASE_URL ?>/my-trips"
                    class="px-3 py-2 rounded-md text-sm font-medium transition-colors
@@ -55,6 +65,11 @@
                           <?= (($activeNav ?? '') === 'trip') ? 'bg-blue-600 text-white' : 'text-slate-300 hover:bg-slate-700 hover:text-white' ?>">
                     New Trip
                 </a>
+                <a href="<?= BASE_URL ?>/settings"
+                   class="px-3 py-2 rounded-md text-sm font-medium transition-colors
+                          <?= (($activeNav ?? '') === 'settings') ? 'bg-blue-600 text-white' : 'text-slate-300 hover:bg-slate-700 hover:text-white' ?>">
+                    Settings
+                </a>
                 <?php endif; ?>
             </div>
 
@@ -64,14 +79,17 @@
                     <p class="text-white text-sm font-medium"><?= htmlspecialchars($_SESSION['user_name'] ?? '') ?></p>
                     <p class="text-slate-400 text-xs capitalize"><?= htmlspecialchars($_SESSION['user_role'] ?? '') ?></p>
                 </div>
-                <a href="<?= BASE_URL ?>/logout"
-                   class="flex items-center gap-1.5 text-slate-300 hover:text-red-400 text-sm transition-colors px-2 py-1 rounded">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                              d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/>
-                    </svg>
-                    Logout
-                </a>
+                <form action="<?= BASE_URL ?>/logout" method="POST">
+                    <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($_SESSION['csrf_token'] ?? '', ENT_QUOTES, 'UTF-8') ?>">
+                    <button type="submit"
+                            class="flex items-center gap-1.5 text-slate-300 hover:text-red-400 text-sm transition-colors px-2 py-1 rounded">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                  d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/>
+                        </svg>
+                        Logout
+                    </button>
+                </form>
             </div>
 
         </div>

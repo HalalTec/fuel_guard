@@ -16,12 +16,18 @@ class AuthController
         if ($this->authService->isAuthenticated()) {
             $this->redirectByRole();
         }
+        $this->authService->ensureCsrfToken();
         require __DIR__ . '/../view/auth/login.php';
     }
 
     public function login(): void
     {
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            header('Location: ' . BASE_URL . '/login');
+            exit();
+        }
+        if (!$this->authService->validateCsrfToken((string) ($_POST['csrf_token'] ?? ''))) {
+            $_SESSION['error'] = 'Your session token expired. Please try again.';
             header('Location: ' . BASE_URL . '/login');
             exit();
         }
@@ -38,11 +44,6 @@ class AuthController
         $user = $this->authService->authenticate($email, $password);
 
         if ($user) {
-            if ($user['role'] === 'driver') {
-                $_SESSION['error'] = 'Driver accounts do not have access to this portal.';
-                header('Location: ' . BASE_URL . '/login');
-                exit();
-            }
             $this->authService->createSession($user);
             $this->redirectByRole();
         }
@@ -54,6 +55,13 @@ class AuthController
 
     public function logout(): void
     {
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST'
+            || !$this->authService->validateCsrfToken((string) ($_POST['csrf_token'] ?? ''))
+        ) {
+            header('Location: ' . BASE_URL . '/login');
+            exit();
+        }
+
         $_SESSION = [];
         session_destroy();
         header('Location: ' . BASE_URL . '/login');

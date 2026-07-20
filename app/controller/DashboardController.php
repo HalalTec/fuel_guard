@@ -17,6 +17,7 @@ class DashboardController
     public function index(): void
     {
         $this->authService->requireRole('manager');
+        $this->authService->ensureCsrfToken();
 
         $trips          = $this->tripModel->getAllWithDetails();
         $stats          = $this->tripModel->getStats();

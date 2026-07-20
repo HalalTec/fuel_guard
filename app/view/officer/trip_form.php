@@ -50,6 +50,7 @@ require __DIR__ . '/../partials/header.php';
     </div>
 
     <form action="<?= BASE_URL ?>/save-trip" method="POST" class="p-6">
+        <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($_SESSION['csrf_token'], ENT_QUOTES, 'UTF-8') ?>">
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 
@@ -110,7 +111,7 @@ require __DIR__ . '/../partials/header.php';
                     Start Odometer (km) <span class="text-red-500">*</span>
                 </label>
                 <input type="number" id="start_odometer" name="start_odometer"
-                       min="0" step="0.1" required
+                       min="0" max="99999999.99" step="0.1" required
                        class="w-full px-3 py-2.5 border border-slate-200 rounded-lg text-sm text-slate-800
                               placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500
                               focus:border-transparent"
@@ -123,7 +124,7 @@ require __DIR__ . '/../partials/header.php';
                     End Odometer (km) <span class="text-red-500">*</span>
                 </label>
                 <input type="number" id="end_odometer" name="end_odometer"
-                       min="0" step="0.1" required
+                       min="0" max="99999999.99" step="0.1" required
                        class="w-full px-3 py-2.5 border border-slate-200 rounded-lg text-sm text-slate-800
                               placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500
                               focus:border-transparent"
@@ -137,7 +138,7 @@ require __DIR__ . '/../partials/header.php';
                 </label>
                 <div class="relative">
                     <input type="number" id="fuel_consumed" name="fuel_consumed"
-                           min="0.1" step="0.01" required
+                           min="0.01" max="999999.99" step="0.01" required
                            class="w-full px-3 py-2.5 pr-16 border border-slate-200 rounded-lg text-sm text-slate-800
                                   placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500
                                   focus:border-transparent"

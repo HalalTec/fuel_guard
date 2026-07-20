@@ -1,3 +1,8 @@
+# Prevent direct download of database scripts, logs, and local configuration templates
+<FilesMatch "\.(sql|log|example)$">
+    Require all denied
+</FilesMatch>
+
 RewriteEngine On
 
 # If the request is not a file or directory

@@ -12,6 +12,14 @@ class VehicleModel
             ->fetchAll();
     }
 
+    public function create(string $plateNumber, string $model, float $currentOdometer): int
+    {
+        $stmt = $this->db->prepare(
+            'INSERT INTO vehicles (plate_number, model, current_odometer) VALUES (?, ?, ?) RETURNING id'
+        );
+        $stmt->execute([$plateNumber, $model, $currentOdometer]);
+        return (int) $stmt->fetchColumn();
+    }
     public function updateOdometer(int $vehicleId, float $odometer): void
     {
         $stmt = $this->db->prepare(

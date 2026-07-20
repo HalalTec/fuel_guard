@@ -25,6 +25,7 @@ class TripController
     public function showForm(): void
     {
         $this->authService->requireRole('officer');
+        $this->authService->ensureCsrfToken();
 
         $vehicles = $this->vehicleModel->getAll();
         $routes   = $this->routeModel->getAll();
@@ -38,6 +39,11 @@ class TripController
         $this->authService->requireRole('officer');
 
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            header('Location: ' . BASE_URL . '/trip');
+            exit();
+        }
+        if (!$this->authService->validateCsrfToken((string) ($_POST['csrf_token'] ?? ''))) {
+            $_SESSION['error'] = 'Your session token expired. Please try again.';
             header('Location: ' . BASE_URL . '/trip');
             exit();
         }
@@ -64,8 +70,14 @@ class TripController
             exit();
         }
 
-        if ($fuelConsumed <= 0) {
-            $_SESSION['error'] = 'Fuel consumed must be a positive value.';
+        if ($startOdometer < 0 || $startOdometer > 99999999.99 || $endOdometer > 99999999.99) {
+            $_SESSION['error'] = 'Odometer values must be between 0 and 99,999,999.99 km.';
+            header('Location: ' . BASE_URL . '/trip');
+            exit();
+        }
+
+        if ($fuelConsumed <= 0 || $fuelConsumed > 999999.99) {
+            $_SESSION['error'] = 'Fuel consumed must be between 0.01 and 999,999.99 litres.';
             header('Location: ' . BASE_URL . '/trip');
             exit();
         }
